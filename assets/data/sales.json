@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2024-01-01",
+    "brand": "Brand A",
+    "region": "North",
+    "salesAmount": 12000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-02-01",
+    "brand": "Brand B",
+    "region": "South",
+    "salesAmount": 8000,
+    "isActiveStore": false
+  }
+]
