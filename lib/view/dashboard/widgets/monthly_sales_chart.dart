@@ -18,15 +18,23 @@ class MonthlySalesChart extends StatelessWidget {
     ).toList();
 
     return SizedBox(
-      height: 200,
+      height: 220,
       child: LineChart(
         LineChartData(
+          gridData: const FlGridData(show: false),
+          borderData: FlBorderData(show: false),
           titlesData: const FlTitlesData(show: false),
           lineBarsData: [
             LineChartBarData(
               spots: spots,
               isCurved: true,
+              color: Colors.blue,
+              barWidth: 3,
               dotData: const FlDotData(show: true),
+              belowBarData: BarAreaData(
+                show: true,
+                color: Colors.blue.withOpacity(0.15),
+              ),
             ),
           ],
         ),

@@ -7,14 +7,16 @@ class SalesInitial extends SalesState {}
 class SalesLoading extends SalesState {}
 
 class SalesLoaded extends SalesState {
-  final List<SaleModel> sales; // SaleModel list
+  final List<SaleModel> sales;
   final double totalSales;
   final int activeStores;
+  final String topBrand;
 
   SalesLoaded({
     required this.sales,
     required this.totalSales,
     required this.activeStores,
+    required this.topBrand,
   });
 }
 

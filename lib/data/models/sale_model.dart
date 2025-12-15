@@ -13,13 +13,18 @@ class SaleModel {
     required this.isActiveStore,
   });
 
-  factory SaleModel.fromJson(Map<String, dynamic> json) {
-    return SaleModel(
-      date: DateTime.parse(json['date']),
-      brand: json['brand'],
-      region: json['region'],
-      salesAmount: (json['salesAmount'] as num).toDouble(),
-      isActiveStore: json['isActiveStore'],
-    );
-  }
+factory SaleModel.fromJson(Map<String, dynamic> json) {
+  return SaleModel(
+    brand: json['brand'] ?? 'Unknown',
+    region: json['region'] ?? 'NA',
+    date: DateTime.tryParse(json['date'] ?? '') ??
+        DateTime.now(),
+    salesAmount:
+        (json['salesAmount'] as num?)?.toDouble() ?? 0,
+    isActiveStore: json['isActiveStore'] ?? false,
+  );
+}
+
+  toJson() {}
+
 }

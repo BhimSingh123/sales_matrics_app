@@ -12,5 +12,103 @@
     "region": "South",
     "salesAmount": 8000,
     "isActiveStore": false
+  },
+  {
+    "date": "2024-03-01",
+    "brand": "Brand C",
+    "region": "East",
+    "salesAmount": 15000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-04-01",
+    "brand": "Brand D",
+    "region": "West",
+    "salesAmount": 9500,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-05-01",
+    "brand": "Brand A",
+    "region": "North",
+    "salesAmount": 18000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-06-01",
+    "brand": "Brand B",
+    "region": "South",
+    "salesAmount": 7000,
+    "isActiveStore": false
+  },
+  {
+    "date": "2024-07-01",
+    "brand": "Brand C",
+    "region": "East",
+    "salesAmount": 22000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-08-01",
+    "brand": "Brand D",
+    "region": "West",
+    "salesAmount": 11000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-09-01",
+    "brand": "Brand E",
+    "region": "North",
+    "salesAmount": 13000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-10-01",
+    "brand": "Brand F",
+    "region": "South",
+    "salesAmount": 6000,
+    "isActiveStore": false
+  },
+  {
+    "date": "2024-11-01",
+    "brand": "Brand G",
+    "region": "East",
+    "salesAmount": 17000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2024-12-01",
+    "brand": "Brand H",
+    "region": "West",
+    "salesAmount": 14000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2025-01-01",
+    "brand": "Brand A",
+    "region": "North",
+    "salesAmount": 20000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2025-02-01",
+    "brand": "Brand B",
+    "region": "South",
+    "salesAmount": 9000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2025-03-01",
+    "brand": "Brand C",
+    "region": "East",
+    "salesAmount": 25000,
+    "isActiveStore": true
+  },
+  {
+    "date": "2025-04-01",
+    "brand": "Brand D",
+    "region": "West",
+    "salesAmount": 16000,
+    "isActiveStore": true
   }
 ]

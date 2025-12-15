@@ -7,12 +7,10 @@ class CsvExporter {
       List<InvoiceComparisonResult> results) async {
     final buffer = StringBuffer();
 
-    // CSV Header
     buffer.writeln(
       'Item Code,PO Quantity,Invoice Quantity,PO Price,Invoice Price,Quantity Mismatch,Price Mismatch',
     );
 
-    // CSV Rows
     for (final r in results) {
       buffer.writeln(
         '${r.poItem.itemCode},'
@@ -25,9 +23,20 @@ class CsvExporter {
       );
     }
 
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/invoice_comparison_report.csv');
+    // ✅ Correct external directory (scoped storage safe)
+    final directory = await getExternalStorageDirectory();
+    if (directory == null) {
+      throw Exception('External storage not available');
+    }
 
-    return file.writeAsString(buffer.toString());
+    final filePath =
+        '${directory.path}/invoice_comparison_report_${DateTime.now().millisecondsSinceEpoch}.csv';
+
+    final file = File(filePath);
+    await file.writeAsString(buffer.toString());
+
+    print('CSV SAVED AT: $filePath');
+
+    return file;
   }
 }

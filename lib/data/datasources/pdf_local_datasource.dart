@@ -14,54 +14,75 @@ class PdfLocalDataSource {
     final PdfTextExtractor extractor = PdfTextExtractor(document);
     final String extractedText = extractor.extractText();
 
-    print('PDF TEXT START ----------------');
-    print(extractedText);
-    print('PDF TEXT END ------------------');
 
     document.dispose();
 
-    return _parseTextToItems(extractedText, source);
+    return parseClientInvoicePdf(extractedText, source);
+  }
+List<InvoiceItemModel> parseClientInvoicePdf(
+  String extractedText,
+  InvoiceSource source,
+) {
+  final lines = extractedText
+      .split('\n')
+      .map((e) => e.trim())
+      .where((e) => e.isNotEmpty)
+      .toList();
+
+  final List<InvoiceItemModel> items = [];
+
+  bool isSku(String value) {
+    return RegExp(r'^A\d{4}$').hasMatch(value);
   }
 
-  List<InvoiceItemModel> _parseTextToItems(
-    String text,
-    InvoiceSource source,
-  ) {
-    final lines = text
-        .split('\n')
-        .map((e) => e.trim())
-        .where((e) => e.isNotEmpty)
-        .toList();
+  int i = 0;
+  while (i < lines.length) {
+    if (isSku(lines[i])) {
+      final sku = lines[i];
+      if (i + 2 >= lines.length) break;
 
-    final List<InvoiceItemModel> items = [];
+      final description = lines[i + 1];
 
-    for (int i = 1; i < lines.length; i++) {
-      if (lines[i].startsWith('ITEM')) {
-        // Safety check: ensure next 4 lines exist
-        if (i + 4 >= lines.length) continue;
+      int? quantity;
+      double? unitPrice;
+      double? lineTotal;
 
-        final itemCode = lines[i];
-        final description = lines[i + 1];
-        final quantity = int.tryParse(lines[i + 2]) ?? 0;
-        final unitPrice = double.tryParse(lines[i + 3]) ?? 0;
-        final totalPrice = double.tryParse(lines[i + 4]) ?? 0;
+      int j = i + 2;
 
-        items.add(
-          InvoiceItemModel(
-            itemCode: itemCode,
-            description: description,
-            quantity: quantity,
-            unitPrice: unitPrice,
-            totalPrice: totalPrice,
-            source: source,
-          ),
-        );
+      // Scan forward until next SKU or end
+      while (j < lines.length && !isSku(lines[j])) {
+        final value = lines[j];
 
-        // Skip next 4 lines since they are already processed
-        // i += 0;
+        if (quantity == null && int.tryParse(value) != null) {
+          quantity = int.parse(value);
+        } else if (unitPrice == null && double.tryParse(value) != null) {
+          unitPrice = double.parse(value);
+        }
+
+        if (double.tryParse(value) != null) {
+          lineTotal = double.parse(value);
+        }
+
+        j++;
       }
-    }
 
-    return items;
+      items.add(
+        InvoiceItemModel(
+          itemCode: sku,
+          description: description,
+          quantity: quantity ?? 0,
+          unitPrice: unitPrice ?? 0,
+          totalPrice: lineTotal ?? 0,
+          source: source,
+        ),
+      );
+
+      i = j; // jump to next SKU block
+    } else {
+      i++;
+    }
   }
+
+  return items;
+}
 }

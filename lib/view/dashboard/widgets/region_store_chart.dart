@@ -15,6 +15,9 @@ class RegionStoreChart extends StatelessWidget {
           barRods: [
             BarChartRodData(
               toY: e.value.value.toDouble(),
+              color: Colors.orange,
+              borderRadius: BorderRadius.circular(6),
+              width: 18,
             )
           ],
         );
@@ -22,9 +25,11 @@ class RegionStoreChart extends StatelessWidget {
     ).toList();
 
     return SizedBox(
-      height: 200,
+      height: 220,
       child: BarChart(
         BarChartData(
+          gridData: const FlGridData(show: false),
+          borderData: FlBorderData(show: false),
           titlesData: const FlTitlesData(show: false),
           barGroups: bars,
         ),
